@@ -4,11 +4,11 @@ const Header = () => {
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "text-purple-200 font-semibold"
-      : "text-white hover:text-yellow-300 transition-colors duration-200";
+      ? "text-secondary font-semibold"
+      : "text-white hover:text-yellow-500 transition-colors duration-200";
 
   return (
-    <header className="bg-purple-700 shadow-md">
+    <header className="bg-primary shadow-md">
       <div className="container mx-auto flex items-center justify-between p-4">
         
         <Link to="/" className="text-xl font-bold text-white">
