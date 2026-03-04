@@ -22,6 +22,16 @@ Create a .env file:
 
 VITE_TMDB_API_KEY=your_api_key_here
 
+## 📦 Dependencies
+
+npm install react-router-dom
+npm install @reduxjs/toolkit react-redux
+npm install @tanstack/react-table
+npm install axios
+npm install tailwindcss postcss autoprefixer
+npx tailwindcss init 
+
+
 ## 🧠 Technical Decisions
 
 - RTK Query used for data fetching and caching.
