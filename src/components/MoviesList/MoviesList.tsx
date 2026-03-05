@@ -32,7 +32,8 @@ const MoviesList = () => {
         {data?.results.map((movie) => (
           <div
             key={movie.id}
-            className="w-full bg-gray-900 text-white rounded-xl overflow-hidden border border-white/30 shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+            className="w-full bg-gray-900 text-white rounded-xl overflow-hidden border border-white/30 shadow-md
+             transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <img
               src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}

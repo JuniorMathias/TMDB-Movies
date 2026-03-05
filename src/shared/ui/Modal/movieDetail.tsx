@@ -56,7 +56,7 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
                   <strong>Popularity:</strong> {movie.popularity}
                 </p>
                 <p>
-                  <strong>Vote Average:</strong> {movie.vote_average}
+                  <strong>Vote Average:</strong> {movie.vote_average.toFixed(1)}
                 </p>
                 <p>
                   <strong>Vote Count:</strong> {movie.vote_count}

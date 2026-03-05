@@ -30,7 +30,7 @@ const Header = () => {
         
         <Link to="/" className="text-xl font-bold text-white"> TMDB Movies </Link>
 
-        <nav className="flex items-center gap-6 relative">
+        <nav className="flex items-center gap-4 relative">
           <NavLink to="/" className={getNavLinkClass}>
             Movies
           </NavLink>
@@ -38,7 +38,7 @@ const Header = () => {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center text-white hover:text-yellow-500 transition-colors duration-200 font-semibold"
+              className="flex items-center text-white hover:text-yellow-500 transition-colors duration-200"
             >
               Categories <span className="ml-1">&#9662;</span>
             </button>
@@ -52,7 +52,7 @@ const Header = () => {
                     <NavLink
                       key={genre.id}
                       to={`/genre/${regexCategory(genre.name)}`} 
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      className="block px-4 py-2 text-gray-800 font-semibold hover:bg-primary"
                       onClick={() => setDropdownOpen(false)}
                     >
                       {genre.name}
@@ -65,6 +65,10 @@ const Header = () => {
 
           <NavLink to="/favorites" className={getNavLinkClass}>
             Favorites
+          </NavLink>
+
+          <NavLink to="/search" className={getNavLinkClass}>
+            Table
           </NavLink>
 
         </nav>

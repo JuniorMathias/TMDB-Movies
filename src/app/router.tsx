@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "@/app/layouts/MainLayout";
 import MoviesPage from "@/pages/MoviesPage/MoviesPage";
-import MovieDetailPage from "@/pages/MovieDetailPage/MovieDetailPage";
 import FavoritesPage from "@/pages/FavoritesPage/FavoritesPage";
-import CategorieMovie from "@/components/CategorieMovie/Categorie"; // nova página
 import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
+import MoviesTable from "@/components/MoviesTable/MoviesTable";
+import CategoriesPage from "@/pages/CategoriesPage/CategoriesPage";
 
 export const router = createBrowserRouter([
   {
@@ -13,9 +13,9 @@ export const router = createBrowserRouter([
     errorElement: <ErrorMessage />,
     children: [
       { index: true, element: <MoviesPage /> },
-      { path: "movie/:id", element: <MovieDetailPage /> },
       { path: "favorites", element: <FavoritesPage /> },
-      { path: "genre/:category", element: <CategorieMovie /> }
+      { path: "genre/:category", element: <CategoriesPage /> },
+      { path: "search", element: <MoviesTable /> },
     ],
   },
 ]);
