@@ -11,8 +11,8 @@ const Header = () => {
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "text-secondary font-semibold"
-      : "text-white hover:text-yellow-500 transition-colors duration-200";
+      ? "text-yellow-500 font-semibold"
+      : "text-white transition-colors duration-200";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -25,8 +25,8 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-primary shadow-md">
-      <div className="container mx-auto flex items-center justify-between p-4">
+    <header className="shadow-md">
+      <div className="container mx-auto flex items-center justify-between p-4 ">
         
         <Link to="/" className="text-xl font-bold text-white"> TMDB Movies </Link>
 
@@ -69,6 +69,7 @@ const Header = () => {
 
         </nav>
       </div>
+      <div className="h-[3px] w-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700"></div>
     </header>
   );
 };

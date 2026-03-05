@@ -3,7 +3,7 @@ import Header from "@/shared/components/Header/Header";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black">
       <Header />
       <main className="container mx-auto p-4">
         <Outlet />
@@ -12,4 +12,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default MainLayout; 

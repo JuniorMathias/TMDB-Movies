@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGetMoviesQuery, useGetGenresQuery } from "@/features/movies/api/moviesApi";
 import { formatDate } from "@/shared/utils/formatDate";
 import MovieCardSkeleton from "@/features/movies/components/CardSkeleton/MovieCardSkeleton";
+import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
 
 const MoviesList = () => {
   const { data, error, isLoading } = useGetMoviesQuery({ page: 2 });
@@ -16,7 +17,7 @@ const MoviesList = () => {
   };
 
   if (isLoading) return <MovieCardSkeleton/>;
-  if (error) return <p>Error loading movies</p>;
+  if (error) return <p><ErrorMessage/></p>;
 
   const toggleReadMore = (id: number) => {
     setExpandedId((prev) => (prev === id ? null : id));
@@ -25,16 +26,17 @@ const MoviesList = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 
-        className="text-2xl rounded-3xl bg-yellow-400 text-primary italic mb-4 font-bold flex justify-center font-extrabold">
-          Movies List</h1>
+        className="text-2xl rounded-3xl  text-white italic mb-4 font-bold font-extrabold">
+          Popular Movies</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
         {data?.results.map((movie) => {
           const isExpanded = expandedId === movie.id;
 
           return (
             <div
-              className="rounded-3xl shadow-sm bg-primary overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300"
+              className="rounded-3xl shadow-sm bg-black overflow-hidden flex flex-col 
+                  hover:scale-105 transition-transform duration-300 border border-white/30 shadow-md"
               key={movie.id}
             >
               <div className="w-full h-80">
@@ -58,7 +60,7 @@ const MoviesList = () => {
 
 
                 <p
-                  className={`leading-6 text-sm font-light text-gray-200 transition-all duration-300 ${isExpanded ? "" : "line-clamp-3"
+                  className={` text-justify text-sm font-light text-gray-200   ${isExpanded ? "" : "line-clamp-3"
                     }`}
                 >
                   {movie.overview}

@@ -18,7 +18,7 @@ inside the project:
  - npm install
  - npm run dev
 
-Create a .env file:
+Create  (.env )file:
 
 VITE_TMDB_API_KEY=your_api_key_here
 
@@ -30,6 +30,7 @@ npm install @tanstack/react-table
 npm install axios
 npm install tailwindcss postcss autoprefixer
 npx tailwindcss init 
+npm install @material-tailwind/react
 
 
 ## 🧠 Technical Decisions
