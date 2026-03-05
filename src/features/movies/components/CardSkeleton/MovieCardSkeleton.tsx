@@ -2,7 +2,7 @@ const MovieCardSkeleton = () => {
   return (
     <div className="bg-primary rounded-2xl shadow-lg overflow-hidden flex flex-col animate-pulse">
       
-      <div className="w-full h-80 bg-secondary"></div>
+      <div className="w-full h-80 bg-white"></div>
 
       <div className="px-5 py-4 flex flex-col flex-1 space-y-3">
         
