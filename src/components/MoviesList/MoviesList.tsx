@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGetMoviesQuery, useGetGenresQuery } from "@/features/movies/api/moviesApi";
 import { formatDate } from "@/shared/utils/formatDate";
+import MovieCardSkeleton from "@/features/movies/components/CardSkeleton/MovieCardSkeleton";
 
 const MoviesList = () => {
   const { data, error, isLoading } = useGetMoviesQuery({ page: 2 });
@@ -14,7 +15,7 @@ const MoviesList = () => {
       .join(", ");
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <MovieCardSkeleton/>;
   if (error) return <p>Error loading movies</p>;
 
   const toggleReadMore = (id: number) => {
@@ -36,7 +37,7 @@ const MoviesList = () => {
               className="rounded-3xl shadow-sm bg-primary overflow-hidden flex flex-col hover:scale-105 transition-transform duration-300"
               key={movie.id}
             >
-              <div className="relative w-full h-80 overflow-hidden">
+              <div className="w-full h-80">
                 <img
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                   alt={movie.title}
@@ -63,10 +64,6 @@ const MoviesList = () => {
                   {movie.overview}
                 </p>
 
-                <div>
-
-
-                </div>
 
                 {movie.overview.length > 100 ?
                   <button
@@ -89,6 +86,9 @@ const MoviesList = () => {
                   <div className="flex flex-col items-end">
                     <span className="text-secondary font-semibold block">
                       {formatDate(movie.release_date)}
+                    </span>
+                    <span className="text-secondary font-semibold block">
+                      +
                     </span>
                   </div>
                 </div>
