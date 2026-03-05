@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useGetMoviesQuery, useGetGenresQuery } from "@/features/movies/api/moviesApi";
 import MovieCardSkeleton from "@/features/movies/components/CardSkeleton/MovieCardSkeleton";
 import { Pagination } from "@/shared/ui/Pagination/Pagination";
-import { HeartIcon, StarIcon } from "@heroicons/react/24/solid";
+import { StarIcon } from "@heroicons/react/24/solid";
 import { MovieDetailModal } from "@/shared/ui/Modal/movieDetail";
 import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
+import FavoriteButton from "@/shared/ui/FavoriteButton/FavoriteButton";
 
 const MoviesList = () => {
   const [page, setPage] = useState(1);
@@ -55,9 +56,7 @@ const MoviesList = () => {
                   <span>{movie.vote_average.toFixed(1)}</span>
                 </div>
 
-                <button className="text-red-500 hover:scale-110 transition">
-                  <HeartIcon className="h-5 w-5" />
-                </button>
+                <FavoriteButton movieId={movie.id} />
               </div>
 
               <button

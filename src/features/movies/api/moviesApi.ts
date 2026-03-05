@@ -18,6 +18,7 @@ export const moviesApi = createApi({
           include_video: false,
           language: "en-US",
           sort_by: "popularity.desc",
+          primary_release_year: "year",
           page: 1,
           ...params,
         },
