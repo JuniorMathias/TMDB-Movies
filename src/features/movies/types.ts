@@ -11,6 +11,7 @@ export interface Movie {
   popularity: number;
   genre_ids: number[];
   adult: boolean;
+  genres: any;
   original_language: string;
   video: boolean;
 }
