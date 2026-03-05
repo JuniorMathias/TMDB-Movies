@@ -11,7 +11,7 @@ export default withMT({
   theme: {
     extend: {
       colors: {
-        primary: colors.purple[700],
+        primary: colors.yellow[400],
         secondary: colors.purple[200]
       },
     },

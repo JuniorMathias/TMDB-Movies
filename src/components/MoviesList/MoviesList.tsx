@@ -3,9 +3,11 @@ import { useGetMoviesQuery, useGetGenresQuery } from "@/features/movies/api/movi
 import { formatDate } from "@/shared/utils/formatDate";
 import MovieCardSkeleton from "@/features/movies/components/CardSkeleton/MovieCardSkeleton";
 import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
+import { Pagination } from "@/shared/ui/Pagination/Pagination";
 
 const MoviesList = () => {
-  const { data, error, isLoading } = useGetMoviesQuery({ page: 2 });
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading } = useGetMoviesQuery({ page });
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const { data: genresData } = useGetGenresQuery();
 
@@ -54,10 +56,9 @@ const MoviesList = () => {
                 </h3>
 
                 <div className="flex flex-col mb-2 mt-2">
-                  <span className="text-sm text-yellow-400">Genres</span>
+                  <span className="text-sm text-primary">Genres</span>
                   <span className="text-sm text-white">{getGenreNames(movie.genre_ids)}</span>
                 </div>
-
 
                 <p
                   className={` text-justify text-sm font-light text-gray-200   ${isExpanded ? "" : "line-clamp-3"
@@ -101,6 +102,12 @@ const MoviesList = () => {
           );
         })}
       </div>
+
+    <Pagination
+      page={page}
+      totalPages={data?.total_pages ?? 1}
+      onPageChange={setPage}
+    /> 
     </div>
   );
 };

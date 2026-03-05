@@ -69,7 +69,7 @@ const Header = () => {
 
         </nav>
       </div>
-      <div className="h-[3px] w-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700"></div>
+      <div className="h-[3px] w-full bg-gradient-to-r from-yellow-200 via-primary to-yellow-700"></div>
     </header>
   );
 };
