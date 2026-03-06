@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { getFavorites } from "@/shared/utils/getFavorites";
-import { useGetMoviesQuery } from "@/features/movies/api/moviesApi";
+import { useGetGenresQuery, useGetMoviesQuery } from "@/features/movies/api/moviesApi";
+import MovieCard from "@/features/movies/components/Cards/MovieCard/MovieCard";
+import { MovieDetailModal } from "@/shared/ui/Modal/movieDetail";
 
 const Favorites = () => {
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const { data } = useGetMoviesQuery({ page: 1 });
+  const { data: genresData } = useGetGenresQuery();
+  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
 
   useEffect(() => {
     setFavoriteIds(getFavorites());
@@ -22,17 +26,19 @@ const Favorites = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {favoriteMovies?.map((movie) => (
-          <div key={movie.id} className="bg-gray-900 p-4 rounded-xl text-white">
-            <img
-              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-              alt={movie.title}
-              className="h-72 w-full object-cover rounded"
-            />
-
-            <h3 className="mt-2 font-semibold">{movie.title}</h3>
-          </div>
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            genres={genresData?.genres || []}
+            onOpenDetail={setSelectedMovieId}
+          />
         ))}
       </div>
+
+      <MovieDetailModal
+        movieId={selectedMovieId}
+        onClose={() => setSelectedMovieId(null)}
+      />
     </div>
   );
 };
