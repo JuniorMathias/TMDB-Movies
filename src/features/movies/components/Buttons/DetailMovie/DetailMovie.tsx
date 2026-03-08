@@ -8,7 +8,7 @@ const DetailMovie = ({ onClick }: DetailMovieProps) => {
       onClick={onClick}
       className="text-blue-400 hover:underline"
     >
-      Ver mais
+      See More 
     </button>
   );
 };

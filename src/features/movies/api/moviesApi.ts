@@ -43,6 +43,11 @@ export const moviesApi = createApi({
         },
       }),
     }),
+
+    searchMovies: builder.query({
+      query: ({ query, page }) =>
+        `/search/movie?query=${query}&page=${page}`,
+    }),
  
   }),
 });
@@ -50,5 +55,6 @@ export const moviesApi = createApi({
 export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
-  useGetGenresQuery
+  useGetGenresQuery,
+  useSearchMoviesQuery
 } = moviesApi;

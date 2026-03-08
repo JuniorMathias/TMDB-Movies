@@ -22,3 +22,32 @@ export interface MoviesResponse {
   total_pages: number;
   total_results: number;
 }
+
+export interface Genre {
+  id: number;
+  name: string;
+}
+
+export interface GenresResponse {
+  genres: Genre[];
+  movie: any; 
+  onOpenDetail: (id: number) => void;
+}
+
+export interface MoviesFiltersProps {
+  search: string;
+  onSearchChange: (value: string) => void;
+
+  genres: Genre[];
+  selectedGenres: number[];
+  onToggleGenre: (id: number) => void;
+
+  minVote: string;
+  onMinVoteChange: (value: string) => void;
+
+  year: string;
+  onYearChange: (value: string) => void;
+
+  sort: string;
+  onSortChange: (value: string) => void;
+}

@@ -12,7 +12,7 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 "
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div

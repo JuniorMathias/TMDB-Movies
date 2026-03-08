@@ -1,14 +1,9 @@
 import { StarIcon } from "@heroicons/react/24/solid";
 import FavoriteButton from "../../Buttons/FavoriteButton/FavoriteButton";
 import DetailMovie from "../../Buttons/DetailMovie/DetailMovie";
+import type {  GenresResponse } from "@/features/movies/types";
 
-interface MovieCardProps {
-  movie: any;
-  genres: { id: number; name: string }[];
-  onOpenDetail: (id: number) => void;
-}
-
-const MovieCard = ({ movie, genres, onOpenDetail }: MovieCardProps) => {
+const MovieCard = ({ movie, genres, onOpenDetail }: GenresResponse) => {
 
   const getGenreNames = (ids: number[]) =>
     ids
