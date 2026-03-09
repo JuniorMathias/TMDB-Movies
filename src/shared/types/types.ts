@@ -11,7 +11,7 @@ export interface Movie {
   popularity: number;
   genre_ids: number[];
   adult: boolean;
-  genres: any;
+  genres: Genre[];
   original_language: string;
   video: boolean;
 }
@@ -30,7 +30,7 @@ export interface Genre {
 
 export interface GenresResponse {
   genres: Genre[];
-  movie: any; 
+  movie: Movie;
   onOpenDetail: (id: number) => void;
   updatePage?: boolean;
 }

@@ -18,8 +18,12 @@ const MoviesTable = ({ value, onChange }: TableProps) => {
       <tbody>
         {value.map((movie) => (
           <tr key={movie.id} className="border-t border-gray-700">
-            <td className="p-2 cursor-pointer hover:underline hover:text-primary" 
-              onClick={() => onChange(movie.id)}>{movie.title}</td>
+            <td
+              className="p-2 cursor-pointer hover:underline hover:text-primary"
+              onClick={() => onChange(movie.id)}
+            >
+              {movie.title}
+            </td>
             <td className="p-2">
               <FavoriteButton movieId={movie.id} />
             </td>

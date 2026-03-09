@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { MoviesResponse, Movie } from "../../../shared/types/types";
-
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+import type { MoviesResponse, Movie } from "@/shared/types/types";
+import { API_KEY } from "@/config";
 
 export const moviesApi = createApi({
   reducerPath: "moviesApi",
@@ -9,7 +8,10 @@ export const moviesApi = createApi({
     baseUrl: "https://api.themoviedb.org/3/",
   }),
   endpoints: (builder) => ({
-    getMovies: builder.query<MoviesResponse, Record<string, any>>({
+    getMovies: builder.query<
+      MoviesResponse,
+      Record<string, string | number | boolean | undefined>
+    >({
       query: (params) => ({
         url: "discover/movie",
         params: {
@@ -41,7 +43,10 @@ export const moviesApi = createApi({
       }),
     }),
 
-    getSearchMovies: builder.query<MoviesResponse, { query: string; page?: number }>({
+    getSearchMovies: builder.query<
+      MoviesResponse,
+      { query: string; page?: number }
+    >({
       query: ({ query, page = 1 }) => ({
         url: "search/movie",
         params: {
@@ -53,7 +58,6 @@ export const moviesApi = createApi({
         },
       }),
     }),
- 
   }),
 });
 

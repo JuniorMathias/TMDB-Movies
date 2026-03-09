@@ -1,7 +1,10 @@
 import type { GenreProps } from "../../FilterProps";
 
-
-const GenresFilter = ({ genres, selectedGenres, onToggleGenre }: GenreProps) => {
+const GenresFilter = ({
+  genres,
+  selectedGenres,
+  onToggleGenre,
+}: GenreProps) => {
   return (
     <div>
       <p className="mb-2 font-semibold text-white">Genres</p>

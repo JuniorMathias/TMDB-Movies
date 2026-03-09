@@ -32,6 +32,19 @@ npm install tailwindcss postcss autoprefixer
 npx tailwindcss init 
 npm install @material-tailwind/react
 
+npm install -D jest @types/jest ts-jest
+npm install -D prettier eslint-config-prettier eslint-plugin-prettier
+
+npm install -D jest ts-jest @types/jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom
+npm i -D jest @types/jest ts-jest @testing-library/react @testing-library/jest-dom @reduxjs/toolkit react-redux jest-environment-jsdom
+
+npm install -D @types/testing-library__jest-dom
+
+
+npm run lint
+npm run test
+npx jest
+
 
 ## 🧠 Technical Decisions
 

@@ -29,7 +29,7 @@ const FavoriteButton = ({ movieId, updatePage }: FavoriteButtonProps) => {
 
   const toggleFavorite = () => {
     const favorites: number[] = JSON.parse(
-      localStorage.getItem(FAVORITES_KEY) || "[]"
+      localStorage.getItem(FAVORITES_KEY) || "[]",
     );
 
     let updatedFavorites;
@@ -55,8 +55,9 @@ const FavoriteButton = ({ movieId, updatePage }: FavoriteButtonProps) => {
     <Tooltip content={isFavorite ? "Remove Favorite" : "Add Favorite"} arrow>
       <button
         onClick={toggleFavorite}
-        className={`transition transform hover:scale-110 ${isFavorite ? "text-red-500" : "text-gray-400"
-          }`}
+        className={`transition transform hover:scale-110 ${
+          isFavorite ? "text-red-500" : "text-gray-400"
+        }`}
       >
         <HeartIcon className="h-6 w-6" />
       </button>

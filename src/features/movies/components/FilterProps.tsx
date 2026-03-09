@@ -1,5 +1,4 @@
-
-import type { Genre } from "@/shared/types/types";
+import type { Genre, Movie } from "@/shared/types/types";
 
 export type FilterProps = {
   value: string;
@@ -19,6 +18,6 @@ export type GenreProps = {
 };
 
 export type TableProps = {
-  value: any[];
+  value: Movie[];
   onChange: (value: number) => void;
 };

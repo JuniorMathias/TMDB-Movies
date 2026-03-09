@@ -10,19 +10,28 @@ import { useMoviesFilters } from "@/shared/hooks/useMoviesFilters";
 import MovieCardSkeleton from "@/features/movies/components/Cards/CardSkeleton/MovieCardSkeleton";
 import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
 
-
 const MoviesFilters = () => {
   const {
-    page, setPage,
-    selectedGenres,  toggleGenre,
-    minVote, setMinVote,
-    year, setYear,
-    sort, setSort,
-    searchValue, setSearchValue,
-    selectedMovieId, setSelectedMovieId,
-    genresData, moviesData,
-    searchData, filteredMovies,
-    error,  isLoading,
+    page,
+    setPage,
+    selectedGenres,
+    toggleGenre,
+    minVote,
+    setMinVote,
+    year,
+    setYear,
+    sort,
+    setSort,
+    searchValue,
+    setSearchValue,
+    selectedMovieId,
+    setSelectedMovieId,
+    genresData,
+    moviesData,
+    searchData,
+    filteredMovies,
+    error,
+    isLoading,
   } = useMoviesFilters();
 
   if (error) return <ErrorMessage />;
@@ -31,7 +40,6 @@ const MoviesFilters = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col md:flex-row gap-6">
-        
         <div className="flex flex-col gap-4 w-full md:w-1/4">
           <SearchFilter value={searchValue} onChange={setSearchValue} />
           <GenresFilter
@@ -47,21 +55,22 @@ const MoviesFilters = () => {
         <div className="flex flex-col w-full md:w-3/4 gap-4">
           {filteredMovies.length > 0 ? (
             <>
-              <MoviesTable value={filteredMovies} onChange={setSelectedMovieId} />
+              <MoviesTable
+                value={filteredMovies}
+                onChange={setSelectedMovieId}
+              />
               <Pagination
                 page={page}
                 totalPages={
                   searchValue
-                    ? searchData?.total_pages ?? 1
-                    : moviesData?.total_pages ?? 1
+                    ? (searchData?.total_pages ?? 1)
+                    : (moviesData?.total_pages ?? 1)
                 }
                 onPageChange={setPage}
               />
             </>
           ) : (
-            <p className="text-center text-gray-500 mt-4">
-              No movies found.
-            </p>
+            <p className="text-center text-gray-500 mt-4">No movies found.</p>
           )}
         </div>
       </div>

@@ -4,11 +4,8 @@ interface DetailMovieProps {
 
 const DetailMovie = ({ onClick }: DetailMovieProps) => {
   return (
-    <button
-      onClick={onClick}
-      className="text-blue-400 hover:underline"
-    >
-      See More 
+    <button onClick={onClick} className="text-blue-400 hover:underline">
+      See More
     </button>
   );
 };

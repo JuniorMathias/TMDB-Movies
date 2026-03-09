@@ -18,12 +18,12 @@ export const useMoviesFilters = () => {
 
   const toggleGenre = (id: number) =>
     setSelectedGenres((prev) =>
-      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id],
     );
 
   const { data: searchData } = useGetSearchMoviesQuery(
     searchValue ? { query: searchValue, page } : { query: "", page: 1 },
-    { skip: !searchValue }
+    { skip: !searchValue },
   );
 
   const {
@@ -33,14 +33,14 @@ export const useMoviesFilters = () => {
   } = useGetMoviesQuery(
     !searchValue
       ? {
-        page,
-        sort_by: sort,
-        with_genres: selectedGenres.join("|") || undefined,
-        "vote_average.gte": minVote || undefined,
-        primary_release_year: year || undefined,
-      }
+          page,
+          sort_by: sort,
+          with_genres: selectedGenres.join("|") || undefined,
+          "vote_average.gte": minVote || undefined,
+          primary_release_year: year || undefined,
+        }
       : { page: 1 },
-    { skip: !!searchValue }
+    { skip: !!searchValue },
   );
 
   const allMovies = useMemo(() => {
@@ -54,11 +54,9 @@ export const useMoviesFilters = () => {
         selectedGenres.length === 0 ||
         movie.genre_ids?.some((id) => selectedGenres.includes(id));
 
-      const matchesVote =
-        !minVote || movie.vote_average >= Number(minVote);
+      const matchesVote = !minVote || movie.vote_average >= Number(minVote);
 
-      const matchesYear =
-        !year || movie.release_date?.startsWith(year);
+      const matchesYear = !year || movie.release_date?.startsWith(year);
 
       return matchesGenre && matchesVote && matchesYear;
     });
@@ -84,6 +82,6 @@ export const useMoviesFilters = () => {
     searchData,
     filteredMovies,
     isLoading,
-    error
+    error,
   };
 };

@@ -1,11 +1,9 @@
 const MovieCardSkeleton = () => {
   return (
     <div className="bg-primary rounded-2xl shadow-lg overflow-hidden flex flex-col animate-pulse">
-      
       <div className="w-full h-80 bg-white"></div>
 
       <div className="px-5 py-4 flex flex-col flex-1 space-y-3">
-        
         <div className="h-4 w-24 bg-primary rounded"></div>
 
         <div className="h-3 w-full bg-primary rounded"></div>

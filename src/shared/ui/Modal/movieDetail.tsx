@@ -3,25 +3,35 @@ import FavoriteButton from "@/features/movies/components/Buttons/FavoriteButton/
 import MovieCardSkeleton from "@/features/movies/components/Cards/CardSkeleton/MovieCardSkeleton";
 import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
 import { formatDate } from "@/shared/utils/formatDate";
+import { useEffect } from "react";
 
 interface MovieDetailModalProps {
   movieId: number | null;
   onClose: () => void;
 }
 
-export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) => {
+export const MovieDetailModal = ({
+  movieId,
+  onClose,
+}: MovieDetailModalProps) => {
+  const {
+    data: movie,
+    isLoading,
+    error,
+  } = useGetMovieDetailQuery(movieId!, {
+    skip: !movieId,
+  });
 
-  if (!movieId) {
-      document.body.style.overflow = "auto";
-      return null;
-    }else {  document.body.style.overflow = "hidden"; }
+  useEffect(() => {
+    document.body.style.overflow = movieId ? "hidden" : "auto";
+  }, [movieId]);
 
-  const { data: movie, isLoading, error } = useGetMovieDetailQuery(movieId);
+  if (!movieId) return null;
 
   return (
     <div
-      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 "
-      onClick={onClose} 
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+      onClick={onClose}
     >
       <div
         className="bg-gray-900 text-white rounded-xl w-full max-w-4xl overflow-hidden shadow-[0_10px_25px_rgba(100,100,100,0.8)] flex flex-col md:flex-row relative max-h-[80vh]"
@@ -30,7 +40,10 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
         <button
           className="absolute top-2 right-2 text-white hover:text-red-500 z-10"
           onClick={onClose}
-        >  ✖  </button>
+        >
+          ✖
+        </button>
+
         <div className="w-full h-60 md:h-96 overflow-hidden rounded">
           {isLoading ? (
             <div className="bg-gray-700 animate-pulse w-full h-full"></div>
@@ -44,37 +57,44 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
         </div>
 
         <div className="md:w-2/3 w-full p-6 overflow-y-auto flex flex-col gap-3">
-          {isLoading && <ErrorMessage />}
-          {error &&  <MovieCardSkeleton />}
+          {isLoading && <MovieCardSkeleton />}
+          {error && <ErrorMessage />}
 
           {movie && (
             <>
               <h2 className="text-2xl font-bold">{movie.title}</h2>
 
-              <p className="mt-2">{movie.overview || "No description available."}</p>
+              <p>{movie.overview || "No description available."}</p>
 
               <div className="space-y-1 text-gray-400 text-sm">
                 <p>
-                  <strong>Genres:</strong> {movie.genres.map((g: { name: string }) => g.name).join(", ")}
+                  <strong>Genres:</strong>{" "}
+                  {movie.genres.map((g: { name: string }) => g.name).join(", ")}
                 </p>
+
                 <p>
-                  <strong>Release Date:</strong> {formatDate(movie.release_date)}
+                  <strong>Release Date:</strong>{" "}
+                  {formatDate(movie.release_date)}
                 </p>
+
                 <p>
                   <strong>Popularity:</strong> {movie.popularity}
                 </p>
+
                 <p>
                   <strong>Vote Average:</strong> {movie.vote_average.toFixed(1)}
                 </p>
+
                 <p>
                   <strong>Vote Count:</strong> {movie.vote_count}
                 </p>
+
                 <p>
-                  <strong>Original Language:</strong> {movie.original_language.toUpperCase()}
+                  <strong>Original Language:</strong>{" "}
+                  {movie.original_language.toUpperCase()}
                 </p>
-                <p>
-                  <FavoriteButton movieId={movie.id} />
-                </p>
+
+                <FavoriteButton movieId={movie.id} />
               </div>
             </>
           )}

@@ -10,19 +10,28 @@ import VoteFilter from "@/features/movies/components/Filters/VoteFilter/VoteFilt
 import YearFilter from "@/features/movies/components/Filters/YearFilter/YearFilter";
 import { useMoviesFilters } from "@/shared/hooks/useMoviesFilters";
 
-
 const MoviesList = () => {
   const {
-    page, setPage,
-    selectedGenres,  toggleGenre,
-    minVote, setMinVote,
-    year, setYear,
-    sort, setSort,
-    searchValue, setSearchValue,
-    selectedMovieId, setSelectedMovieId,
-    genresData, moviesData,
-    searchData, filteredMovies,
-    error,  isLoading,
+    page,
+    setPage,
+    selectedGenres,
+    toggleGenre,
+    minVote,
+    setMinVote,
+    year,
+    setYear,
+    sort,
+    setSort,
+    searchValue,
+    setSearchValue,
+    selectedMovieId,
+    setSelectedMovieId,
+    genresData,
+    moviesData,
+    searchData,
+    filteredMovies,
+    error,
+    isLoading,
   } = useMoviesFilters();
 
   if (error) return <ErrorMessage />;
@@ -44,9 +53,7 @@ const MoviesList = () => {
         </div>
 
         <div className="flex-1 flex flex-col">
-          <h1 className="text-2xl text-white mb-4 font-bold">
-            Popular Movies
-          </h1>
+          <h1 className="text-2xl text-white mb-4 font-bold">Popular Movies</h1>
 
           {filteredMovies.length > 0 ? (
             <>
@@ -65,17 +72,15 @@ const MoviesList = () => {
                   page={page}
                   totalPages={
                     searchValue
-                      ? searchData?.total_pages ?? 1
-                      : moviesData?.total_pages ?? 1
+                      ? (searchData?.total_pages ?? 1)
+                      : (moviesData?.total_pages ?? 1)
                   }
                   onPageChange={setPage}
                 />
               </div>
             </>
           ) : (
-            <p className="text-center text-gray-500 mt-4">
-              No movies found.
-            </p>
+            <p className="text-center text-gray-500 mt-4">No movies found.</p>
           )}
         </div>
       </div>

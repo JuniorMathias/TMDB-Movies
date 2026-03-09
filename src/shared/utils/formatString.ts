@@ -1,5 +1,5 @@
 export const regexCategory = (text: string) =>
   text
-    .toLowerCase()               
-    .replace(/\s+/g, "-")       
-    .replace(/[^\w-]/g, ""); 
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]/g, "");

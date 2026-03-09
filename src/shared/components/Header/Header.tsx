@@ -16,7 +16,10 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -27,8 +30,10 @@ const Header = () => {
   return (
     <header className="shadow-md">
       <div className="container mx-auto flex items-center justify-between p-4 ">
-        
-        <Link to="/" className="text-xl font-bold text-white"> TMDB Movies </Link>
+        <Link to="/" className="text-xl font-bold text-white">
+          {" "}
+          TMDB Movies{" "}
+        </Link>
 
         <nav className="flex items-center gap-4 relative">
           <NavLink to="/" className={getNavLinkClass}>
@@ -36,7 +41,6 @@ const Header = () => {
           </NavLink>
 
           <div className="relative" ref={dropdownRef}>
-
             {dropdownOpen && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">
                 {isLoading ? (
@@ -45,7 +49,7 @@ const Header = () => {
                   genresData?.genres.map((genre) => (
                     <NavLink
                       key={genre.id}
-                      to={`/genre/${regexCategory(genre.name)}`} 
+                      to={`/genre/${regexCategory(genre.name)}`}
                       className="block px-4 py-2 text-gray-800 font-semibold hover:bg-primary"
                       onClick={() => setDropdownOpen(false)}
                     >
@@ -64,7 +68,6 @@ const Header = () => {
           <NavLink to="/search" className={getNavLinkClass}>
             Table
           </NavLink>
-
         </nav>
       </div>
       <div className="h-[3px] w-full bg-gradient-to-r from-yellow-200 via-primary to-yellow-700"></div>
