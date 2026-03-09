@@ -1,69 +1,70 @@
-import { useState, useMemo } from "react";
-import { useGetGenresQuery, useGetMoviesQuery } from "@/features/movies/api/moviesApi";
+import SearchFilter from "@/features/movies/components/Filters/Search/SearchInput";
+import GenresFilter from "@/features/movies/components/Filters/GenresFilter/GenresFilter";
+import VoteFilter from "@/features/movies/components/Filters/VoteFilter/VoteFilter";
+import YearFilter from "@/features/movies/components/Filters/YearFilter/YearFilter";
+import SortFilter from "@/features/movies/components/Filters/SortFilter/SortFilter";
 import MoviesTable from "@/features/movies/components/Tables/MoviesTable/MoviesTable";
 import { Pagination } from "@/shared/ui/Pagination/Pagination";
 import { MovieDetailModal } from "@/shared/ui/Modal/movieDetail";
-import MoviesFilters from "@/features/movies/components/Filters/MovieFilters";
+import { useMoviesFilters } from "@/shared/hooks/useMoviesFilters";
+import MovieCardSkeleton from "@/features/movies/components/Cards/CardSkeleton/MovieCardSkeleton";
+import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
 
-const SearchTable = () => {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
-  const { data: genresData } = useGetGenresQuery();
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const [minVote, setMinVote] = useState("");
-  const [year, setYear] = useState("");
-  const [sort, setSort] = useState("popularity.desc");
 
-  const { data } = useGetMoviesQuery({
-    page,
-    sort_by: sort,
-    with_genres: selectedGenres.join(","),
-    "vote_average.gte": minVote,
-    primary_release_year: year,
-  });
+const MoviesFilters = () => {
+  const {
+    page, setPage,
+    selectedGenres,  toggleGenre,
+    minVote, setMinVote,
+    year, setYear,
+    sort, setSort,
+    searchValue, setSearchValue,
+    selectedMovieId, setSelectedMovieId,
+    genresData, moviesData,
+    searchData, filteredMovies,
+    error,  isLoading,
+  } = useMoviesFilters();
 
-  const toggleGenre = (id: number) => {
-  setSelectedGenres((prev) =>
-    prev.includes(id) ? prev.filter((g) => g !== id) : [...prev, id]
-  );
-};
-
-  const filteredMovies = useMemo(() => {
-    if (!data) return [];
-
-    return data.results.filter((movie) =>
-      movie.title.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [data, search]);
+  if (error) return <ErrorMessage />;
+  if (isLoading) return <MovieCardSkeleton />;
 
   return (
-    <div className="container mx-auto px-6 py-4 text-white">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row gap-6">
+        
+        <div className="flex flex-col gap-4 w-full md:w-1/4">
+          <SearchFilter value={searchValue} onChange={setSearchValue} />
+          <GenresFilter
+            genres={genresData?.genres || []}
+            selectedGenres={selectedGenres}
+            onToggleGenre={toggleGenre}
+          />
+          <VoteFilter value={minVote} onChange={setMinVote} />
+          <YearFilter value={year} onChange={setYear} />
+          <SortFilter value={sort} onChange={setSort} />
+        </div>
 
-      <MoviesFilters
-        search={search}
-        onSearchChange={setSearch}
-        genres={genresData?.genres || []}
-        selectedGenres={selectedGenres}
-        onToggleGenre={toggleGenre}
-        minVote={minVote}
-        onMinVoteChange={setMinVote}
-        year={year}
-        onYearChange={setYear}
-        sort={sort}
-        onSortChange={setSort}
-      />
-
-      <MoviesTable
-        movies={filteredMovies}
-        onDetail={(id) => setSelectedMovieId(id)}
-      />
-
-      <Pagination
-        page={page}
-        totalPages={data?.total_pages ?? 1}
-        onPageChange={setPage}
-      />
+        <div className="flex flex-col w-full md:w-3/4 gap-4">
+          {filteredMovies.length > 0 ? (
+            <>
+              <MoviesTable value={filteredMovies} onChange={setSelectedMovieId} />
+              <Pagination
+                page={page}
+                totalPages={
+                  searchValue
+                    ? searchData?.total_pages ?? 1
+                    : moviesData?.total_pages ?? 1
+                }
+                onPageChange={setPage}
+              />
+            </>
+          ) : (
+            <p className="text-center text-gray-500 mt-4">
+              No movies found.
+            </p>
+          )}
+        </div>
+      </div>
 
       <MovieDetailModal
         movieId={selectedMovieId}
@@ -73,4 +74,4 @@ const SearchTable = () => {
   );
 };
 
-export default SearchTable;
+export default MoviesFilters;

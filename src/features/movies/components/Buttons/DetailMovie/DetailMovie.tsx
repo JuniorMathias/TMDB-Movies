@@ -1,5 +1,5 @@
 interface DetailMovieProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const DetailMovie = ({ onClick }: DetailMovieProps) => {
