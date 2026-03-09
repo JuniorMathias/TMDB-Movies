@@ -11,7 +11,7 @@ const Header = () => {
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     isActive
-      ? "text-yellow-500 font-semibold"
+      ? "text-primary font-semibold"
       : "text-white transition-colors duration-200";
 
   useEffect(() => {
@@ -36,12 +36,6 @@ const Header = () => {
           </NavLink>
 
           <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center text-white hover:text-yellow-500 transition-colors duration-200"
-            >
-              Categories <span className="ml-1">&#9662;</span>
-            </button>
 
             {dropdownOpen && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50">

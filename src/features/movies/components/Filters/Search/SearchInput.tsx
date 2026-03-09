@@ -1,10 +1,6 @@
-type Props = {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-};
+import type { SearchProps } from "../../FilterProps";
 
-const SearchInput = ({ value, onChange, placeholder }: Props) => {
+const SearchFilter = ({ value, onChange, placeholder }: SearchProps) => {
   return (
     <input
       type="text"
@@ -16,4 +12,4 @@ const SearchInput = ({ value, onChange, placeholder }: Props) => {
   );
 };
 
-export default SearchInput;
+export default SearchFilter;

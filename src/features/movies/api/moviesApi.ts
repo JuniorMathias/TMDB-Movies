@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { MoviesResponse, Movie } from "../types";
+import type { MoviesResponse, Movie } from "../../../shared/types/types";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -17,9 +17,6 @@ export const moviesApi = createApi({
           include_adult: false,
           include_video: false,
           language: "en-US",
-          sort_by: "popularity.desc",
-          primary_release_year: "year",
-          page: 1,
           ...params,
         },
       }),
@@ -44,9 +41,17 @@ export const moviesApi = createApi({
       }),
     }),
 
-    searchMovies: builder.query({
-      query: ({ query, page }) =>
-        `/search/movie?query=${query}&page=${page}`,
+    getSearchMovies: builder.query<MoviesResponse, { query: string; page?: number }>({
+      query: ({ query, page = 1 }) => ({
+        url: "search/movie",
+        params: {
+          api_key: API_KEY,
+          query,
+          include_adult: false,
+          language: "en-US",
+          page,
+        },
+      }),
     }),
  
   }),
@@ -56,5 +61,5 @@ export const {
   useGetMoviesQuery,
   useGetMovieDetailQuery,
   useGetGenresQuery,
-  useSearchMoviesQuery
+  useGetSearchMoviesQuery,
 } = moviesApi;

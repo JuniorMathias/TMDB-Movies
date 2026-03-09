@@ -1,4 +1,7 @@
 import { useGetMovieDetailQuery } from "@/features/movies/api/moviesApi";
+import FavoriteButton from "@/features/movies/components/Buttons/FavoriteButton/FavoriteButton";
+import MovieCardSkeleton from "@/features/movies/components/Cards/CardSkeleton/MovieCardSkeleton";
+import ErrorMessage from "@/shared/components/ErrorMessage/ErrorMessage";
 import { formatDate } from "@/shared/utils/formatDate";
 
 interface MovieDetailModalProps {
@@ -7,16 +10,21 @@ interface MovieDetailModalProps {
 }
 
 export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) => {
-  if (!movieId) return null;
+
+  if (!movieId) {
+      document.body.style.overflow = "auto";
+      return null;
+    }else {  document.body.style.overflow = "hidden"; }
+
   const { data: movie, isLoading, error } = useGetMovieDetailQuery(movieId);
 
   return (
     <div
-      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
-      onClick={onClose}
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 "
+      onClick={onClose} 
     >
       <div
-        className="bg-gray-900 text-white rounded-xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row relative max-h-[80vh]"
+        className="bg-gray-900 text-white rounded-xl w-full max-w-4xl overflow-hidden shadow-[0_10px_25px_rgba(100,100,100,0.8)] flex flex-col md:flex-row relative max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -36,8 +44,8 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
         </div>
 
         <div className="md:w-2/3 w-full p-6 overflow-y-auto flex flex-col gap-3">
-          {isLoading && <p>Loading...</p>}
-          {error && <p>Error loading movie details.</p>}
+          {isLoading && <ErrorMessage />}
+          {error &&  <MovieCardSkeleton />}
 
           {movie && (
             <>
@@ -47,7 +55,7 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
 
               <div className="space-y-1 text-gray-400 text-sm">
                 <p>
-                  <strong>Genres:</strong> {movie.genres.map((g: { name: any; }) => g.name).join(", ")}
+                  <strong>Genres:</strong> {movie.genres.map((g: { name: string }) => g.name).join(", ")}
                 </p>
                 <p>
                   <strong>Release Date:</strong> {formatDate(movie.release_date)}
@@ -63,6 +71,9 @@ export const MovieDetailModal = ({ movieId, onClose }: MovieDetailModalProps) =>
                 </p>
                 <p>
                   <strong>Original Language:</strong> {movie.original_language.toUpperCase()}
+                </p>
+                <p>
+                  <FavoriteButton movieId={movie.id} />
                 </p>
               </div>
             </>
